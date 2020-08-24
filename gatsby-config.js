@@ -32,7 +32,8 @@ module.exports = {
       options: {
         url:
           // allows a fallback url if WPGRAPHQL_URL is not set in the env, this may be a local or remote WP instance.
-          `http://feelanything.local/graphql`,
+          process.env.WPGRAPHQL_URL ||
+          `http://feelanything.wolfdigitalmedia.ro/graphql`,
         schema: {
           //Prefixes all WP Types with "Wp" so "Post and allPost" become "WpPost and allWpPost".
           typePrefix: `Wp`,
@@ -43,22 +44,12 @@ module.exports = {
         },
         auth: {
           htaccess: {
-            username: `andrei.lucan96@gmail.com`,
-            password: `321!987Rp`,
+            username: process.env.WP_USERNAME || "andrei.lucan96@gmail.com",
+            password: process.env.WP_PASSWORD || "321!987Rp!@",
           },
         },
         html: {
           useGatsbyImage: true,
-        },
-        type: {
-          Post: {
-            limit:
-              process.env.NODE_ENV === `development`
-                ? // Lets just pull 50 posts in development to make it easy on ourselves (aka. faster).
-                  50
-                : // and we don't actually need more than 5000 in production for this particular site
-                  5000,
-          },
         },
       },
     },
