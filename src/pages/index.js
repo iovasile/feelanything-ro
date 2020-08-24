@@ -1,72 +1,75 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
 
-import Bio from "../components/bio"
 import Layout from "../components/layout"
-import SEO from "../components/seo"
-import { rhythm } from "../utils/typography"
+import LatestBlog from "../components/latest_blog"
+import BlogSummary from "../components/blog_summary"
+import Subscribe from "../components/subscribe"
 
-const BlogIndex = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata.title
-  const posts = data.allMarkdownRemark.edges
+import SEO from "../components/seo"
+import { graphql, Link } from "gatsby"
+import { useState } from "react"
+import LoadMore from "../components/load_more"
+
+import "../assets/main.sass"
+
+const IndexPage = ({ data }) => {
+  const [blogCount, updateBlogCount] = useState(8)
 
   return (
-    <Layout location={location} title={siteTitle}>
-      <SEO title="All posts" />
-      <Bio />
-      {posts.map(({ node }) => {
-        const title = node.frontmatter.title || node.fields.slug
-        return (
-          <article key={node.fields.slug}>
-            <header>
-              <h3
-                style={{
-                  marginBottom: rhythm(1 / 4),
-                }}
-              >
-                <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
-                  {title}
-                </Link>
-              </h3>
-              <small>{node.frontmatter.date}</small>
-            </header>
-            <section>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: node.frontmatter.description || node.excerpt,
-                }}
-              />
-            </section>
-          </article>
-        )
-      })}
+    <Layout>
+      <SEO title="Home" />
+
+      <LatestBlog data={data.allWpPost.edges[0].node} />
+
+      <Subscribe />
+      <div className="blog-list">
+        {data.allWpPost.edges.slice(1, blogCount + 1).map(({ node }) => (
+          <div className="blog-summary-border" key={node.id}>
+            <BlogSummary data={node} />
+
+            <Link className="blog-summary-link" to={"/" + node.slug}>
+              <p className="blog-summary-read-more">read more</p>
+            </Link>
+
+            {/* <div className="blog-summary-divider"></div> */}
+          </div>
+        ))}
+      </div>
+      {blogCount < data.allWpPost.edges.length - 1 ? (
+        <LoadMore updateBlogCount={updateBlogCount} blogCount={blogCount} />
+      ) : (
+        <p className="no-more-posts">No more posts to load!</p>
+      )}
     </Layout>
   )
 }
 
-export default BlogIndex
-
-export const pageQuery = graphql`
+export const query = graphql`
   query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allWpPost(sort: { fields: date, order: DESC }) {
       edges {
         node {
+          id
+          date(formatString: "DD MMMM, YYYY")
+          title
+          slug
+          content
           excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            description
+          featuredImage {
+            node {
+              localFile {
+                childImageSharp {
+                  fluid {
+                    ...GatsbyImageSharpFluid
+                  }
+                }
+              }
+            }
           }
         }
       }
     }
   }
 `
+
+export default IndexPage

@@ -1,0 +1,45 @@
+.latest-blog
+    width: calc(100%)
+    max-width: 640px
+    padding: 12px
+    background-color: whitesmoke
+    color: black
+    overflow: hidden
+    position: relative
+
+@media screen and (min-width: 768px)
+    .latest-blog
+        margin: 12px auto
+        border: solid 4px black
+        border-radius: 6px
+
+.latest-blog-label
+    background-color: black
+    color: white
+    font-family: rubik-bold
+    font-size: 1em
+    border: solid 1px black
+    border-top: none
+    border-right: none
+    position: absolute
+    top: -2px
+    right: 0px
+    padding: 16px 12px 12px 12px
+
+.latest-blog-title
+    font-family: rubik-bold
+    font-size: 1.25em
+    color: black
+    text-decoration: none
+    line-height: 1.1
+
+.latest-blog-title:hover
+    color: black
+
+@media screen and (min-width: 375px)
+    .latest-blog-title
+        font-size: 1.375em
+
+@media screen and (min-width: 1024px)
+    .latest-blog-title
+        font-size: 1.5em
