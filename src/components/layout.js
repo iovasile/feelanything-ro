@@ -7,11 +7,13 @@
 
 import React from "react"
 import Header from "./header"
+import Nav from "./nav"
 import Footer from "./footer"
 
 const Layout = ({ children }) => (
   <div className="layout">
     <Header />
+    <Nav />
     <main>{children}</main>
     <Footer />
   </div>

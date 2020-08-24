@@ -31,7 +31,7 @@ const LatestBlog = ({ data }) => {
       <Link className="latest-blog-title" to={"/" + data.slug}>
         <center className="pt-2">{data.title}</center>
       </Link>
-      <Link className="blog-summary-body-link" to={"/" + data.slug}>
+      <Link className="latest-blog-body" to={"/" + data.slug}>
         <div
           className="blog-summary-body"
           dangerouslySetInnerHTML={{

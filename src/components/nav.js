@@ -1,12 +1,5 @@
 import React from "react"
-import { Link } from "gatsby"
-import {
-  FaFacebook,
-  FaInstagram,
-  FaTwitter,
-  FaEnvelope,
-  FaUserCircle,
-} from "react-icons/fa"
+import { FaFacebook, FaInstagram, FaTwitter, FaEnvelope } from "react-icons/fa"
 
 const Nav = () => {
   return (
@@ -23,9 +16,6 @@ const Nav = () => {
       <a href="mailto:mail.iovasile@gmail.com">
         <FaEnvelope className="social-icon" />
       </a>
-      <Link to="/about">
-        <FaUserCircle className="social-icon" />
-      </Link>
     </div>
   )
 }

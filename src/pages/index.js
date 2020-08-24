@@ -22,18 +22,17 @@ const IndexPage = ({ data }) => {
       <LatestBlog data={data.allWpPost.edges[0].node} />
 
       <Subscribe />
+
       <div className="blog-list">
-        {data.allWpPost.edges.slice(1, blogCount + 1).map(({ node }) => (
+        {/* {data.allWpPost.edges.slice(1, blogCount + 1).map(({ node }) => (
           <div className="blog-summary-border" key={node.id}>
             <BlogSummary data={node} />
 
             <Link className="blog-summary-link" to={"/" + node.slug}>
               <p className="blog-summary-read-more">read more</p>
             </Link>
-
-            {/* <div className="blog-summary-divider"></div> */}
           </div>
-        ))}
+        ))} */}
       </div>
       {blogCount < data.allWpPost.edges.length - 1 ? (
         <LoadMore updateBlogCount={updateBlogCount} blogCount={blogCount} />
