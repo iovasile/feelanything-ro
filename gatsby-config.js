@@ -33,7 +33,7 @@ module.exports = {
         url:
           // allows a fallback url if WPGRAPHQL_URL is not set in the env, this may be a local or remote WP instance.
           process.env.WPGRAPHQL_URL ||
-          `http://feelanything.wolfdigitalmedia.ro/graphql`,
+          `https://feelanything.wolfdigitalmedia.ro/graphql`,
         schema: {
           //Prefixes all WP Types with "Wp" so "Post and allPost" become "WpPost and allWpPost".
           typePrefix: `Wp`,

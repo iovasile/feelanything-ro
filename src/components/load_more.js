@@ -6,7 +6,7 @@ const LoadMore = ({ updateBlogCount, blogCount }) => {
       <button
         onMouseDown={e => {
           e.preventDefault()
-          updateBlogCount(blogCount + 4)
+          updateBlogCount(blogCount + 3)
         }}
         className="load-more"
       >

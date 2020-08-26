@@ -3,9 +3,10 @@ import React from "react"
 const Subscribe = () => {
   return (
     <div className="subscribe">
-      <h3 className="subscribe-title">Subscribe!</h3>
+      <h3 className="subscribe-title">Follow my blog</h3>
       <p className="subscribe-description">
-        I'll let you know every time I blog.
+        Please consider following my blog via email! I'll send you a message
+        every time I write a new story.
       </p>
       <button className="subscribe-button">Yes, please!</button>
     </div>

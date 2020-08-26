@@ -1,43 +1,43 @@
 import React from "react"
 
 import Layout from "../components/layout"
-import LatestBlog from "../components/latest_blog"
 import BlogSummary from "../components/blog_summary"
 import Subscribe from "../components/subscribe"
 
 import SEO from "../components/seo"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import { useState } from "react"
 import LoadMore from "../components/load_more"
 
 import "../assets/main.sass"
 
 const IndexPage = ({ data }) => {
-  const [blogCount, updateBlogCount] = useState(8)
+  const [blogCount, updateBlogCount] = useState(9)
 
   return (
     <Layout>
       <SEO title="Home" />
 
-      <LatestBlog data={data.allWpPost.edges[0].node} />
-
-      <Subscribe />
-
       <div className="blog-list">
-        {/* {data.allWpPost.edges.slice(1, blogCount + 1).map(({ node }) => (
-          <div className="blog-summary-border" key={node.id}>
-            <BlogSummary data={node} />
-
-            <Link className="blog-summary-link" to={"/" + node.slug}>
-              <p className="blog-summary-read-more">read more</p>
-            </Link>
-          </div>
-        ))} */}
+        {data.allWpPost.edges
+          .slice(0, blogCount)
+          .map(({ node }, i) =>
+            i === 3 ? (
+              <Subscribe key={"subscribe"} />
+            ) : (
+              <BlogSummary key={node.id} data={node} />
+            )
+          )}
       </div>
       {blogCount < data.allWpPost.edges.length - 1 ? (
-        <LoadMore updateBlogCount={updateBlogCount} blogCount={blogCount} />
+        <center>
+          <LoadMore updateBlogCount={updateBlogCount} blogCount={blogCount} />
+        </center>
       ) : (
-        <p className="no-more-posts">No more posts to load!</p>
+        <p className="no-more-posts">
+          You've reached the end of the list. Please consider subscribing to
+          receive an email every time I write a new story.
+        </p>
       )}
     </Layout>
   )
@@ -53,18 +53,6 @@ export const query = graphql`
           title
           slug
           content
-          excerpt
-          featuredImage {
-            node {
-              localFile {
-                childImageSharp {
-                  fluid {
-                    ...GatsbyImageSharpFluid
-                  }
-                }
-              }
-            }
-          }
         }
       }
     }

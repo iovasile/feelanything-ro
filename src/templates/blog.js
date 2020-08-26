@@ -1,7 +1,9 @@
 import React from "react"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
-import Image from "gatsby-image"
+
+import Subscribe from "../components/subscribe"
+import BlogSummary from "../components/blog_summary"
 
 import "../assets/main.sass"
 
@@ -9,72 +11,46 @@ const Blog = ({ data }) => {
   return (
     <Layout>
       <div className="blog">
-        <div className="blog-info">
-          <p className="blog-date" style={{ color: "black" }}>
-            {data.wpPost.date}
-          </p>
-          <p className="blog-date" style={{ color: "black" }}>
-            {data.wpPost.author.node.usernname ?? data.wpPost.author.node.name}
-          </p>
-        </div>
-        <div className="blog-image-container">
-          {data.wpPost.featuredImage != null ? (
-            <Image
-              className="blog-image"
-              fluid={
-                data.wpPost.featuredImage.node.localFile.childImageSharp.fluid
-              }
-            />
-          ) : (
-            <Image
-              className="blog-image"
-              fixed={data.file.childImageSharp.fixed}
-            />
-          )}
-        </div>
-
-        <h1 className="blog-title" style={{ color: "black" }}>
-          {data.wpPost.title}
-        </h1>
+        <h1 className="blog-title">{data.wpPost.title}</h1>
 
         <div
           className="blog-body"
           dangerouslySetInnerHTML={{ __html: data.wpPost.content }}
         />
+        <div className="blog-footer">
+          <p className="blog-date">{data.wpPost.date}</p>
+          <div className="blog-divider"></div>
+        </div>
+        <br />
+        <Subscribe />
+        <p className="more-stories-title">More stories from my blog:</p>
+        <>
+          {data.allWpPost.edges.map(({ node }) => (
+            <BlogSummary key={node.id} data={node} />
+          ))}
+        </>
       </div>
     </Layout>
   )
 }
 
 export const query = graphql`
-  query($slug: String!) {
+  query($slug: String!, $databaseId: Int!) {
     wpPost(slug: { eq: $slug }) {
       title
       date(formatString: "DD MMMM, YYYY")
       content
       slug
-      featuredImage {
-        node {
-          localFile {
-            childImageSharp {
-              fluid {
-                ...GatsbyImageSharpFluid
-              }
-            }
-          }
-        }
-      }
-      author {
-        node {
-          username
-          name
-        }
-      }
+      databaseId
     }
-    file(relativePath: { eq: "logo.png" }) {
-      childImageSharp {
-        fixed {
-          ...GatsbyImageSharpFixed_tracedSVG
+    allWpPost(limit: 2, filter: { databaseId: { ne: $databaseId } }) {
+      edges {
+        node {
+          id
+          date(formatString: "DD MMMM, YYYY")
+          title
+          slug
+          content
         }
       }
     }
