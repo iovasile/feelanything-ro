@@ -30,9 +30,7 @@ const IndexPage = ({ data }) => {
           )}
       </div>
       {blogCount < data.allWpPost.edges.length - 1 ? (
-        <center>
-          <LoadMore updateBlogCount={updateBlogCount} blogCount={blogCount} />
-        </center>
+        <LoadMore updateBlogCount={updateBlogCount} blogCount={blogCount} />
       ) : (
         <p className="no-more-posts">
           You've reached the end of the list. Please consider subscribing to
