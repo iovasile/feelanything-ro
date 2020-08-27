@@ -2,7 +2,7 @@ import React from "react"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 
-import Subscribe from "../components/subscribe"
+import SEO from "../components/seo"
 import BlogSummary from "../components/blog_summary"
 
 import "../assets/main.sass"
@@ -10,6 +10,15 @@ import "../assets/main.sass"
 const Blog = ({ data }) => {
   return (
     <Layout>
+      <SEO
+        title={data.wpPost.title}
+        description={
+          data.wpPost.date +
+          " - Hi! I'm Andrei Lucan and I write about the things I like. I had a blast writing " +
+          data.wpPost.title +
+          " and I hope you'll enjoy reading it."
+        }
+      />
       <div className="blog">
         <h1 className="blog-title">{data.wpPost.title}</h1>
 
@@ -22,13 +31,12 @@ const Blog = ({ data }) => {
           <div className="blog-divider"></div>
         </div>
         <br />
-        <Subscribe />
-        <p className="more-stories-title">More stories from my blog:</p>
-        <>
+        <h1 className="read-more-title">more articles</h1>
+        <div className="more-list">
           {data.allWpPost.edges.map(({ node }) => (
             <BlogSummary key={node.id} data={node} />
           ))}
-        </>
+        </div>
       </div>
     </Layout>
   )

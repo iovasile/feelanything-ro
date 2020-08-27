@@ -21,7 +21,7 @@ const Footer = () => {
       </div>
 
       <small className="footer-details">Andrei Marius Lucan</small>
-      <small className="footer-details">© 2020. All rights reserved.</small>
+      <small className="footer-details">© All rights reserved</small>
     </div>
   )
 }

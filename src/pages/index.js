@@ -16,13 +16,16 @@ const IndexPage = ({ data }) => {
 
   return (
     <Layout>
-      <SEO title="Home" />
+      <SEO
+        title="Home"
+        description="Hi! I'm Andrei Lucan and I write about the things I like. Welcome to my blog!"
+      />
 
       <div className="blog-list">
         {data.allWpPost.edges
           .slice(0, blogCount)
           .map(({ node }, i) =>
-            i === 3 ? (
+            i === 4 ? (
               <Subscribe key={"subscribe"} />
             ) : (
               <BlogSummary key={node.id} data={node} />
@@ -30,7 +33,9 @@ const IndexPage = ({ data }) => {
           )}
       </div>
       {blogCount < data.allWpPost.edges.length - 1 ? (
-        <LoadMore updateBlogCount={updateBlogCount} blogCount={blogCount} />
+        <center>
+          <LoadMore updateBlogCount={updateBlogCount} blogCount={blogCount} />
+        </center>
       ) : (
         <p className="no-more-posts">
           You've reached the end of the list. Please consider subscribing to

@@ -3,26 +3,34 @@
     margin: 0 auto
     position: relative
     display: grid
-    // justify-content: center
-    // align-items: center
     grid-template-columns: repeat(auto-fit, 100%)
-    grid-template-rows: auto
-    column-gap: 4px
 
 .load-more
-    height: 60px
-    width: 90%
+    height: 50px
+    width: 91%
     margin: 12px 18px 12px 18px
     background-color: black
     color: white
-    font-size: 1.5em
+    font-size: 1.25em
     font-family: playfair-black
     font-weight: bold
     text-transform: uppercase
     border: none
 
 .no-more-posts
-    font-family: playfair-black
+    font-family: playfair-regular
     text-align: center
     color: black
+    font-size: 1.1em
     margin: 18px
+
+@media screen and (min-width: 720px)
+    .blog-list
+        grid-template-columns: repeat(2, 1fr)
+    .load-more, .no-more-posts
+        width: 450px
+        margin: 12px auto
+
+@media screen and (min-width: 1140px)
+    .blog-list
+        grid-template-columns: repeat(3, 1fr)
